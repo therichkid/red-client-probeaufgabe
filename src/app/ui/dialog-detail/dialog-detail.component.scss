@@ -1,0 +1,16 @@
+.detail-table {
+  display: flex;
+  flex-direction: column;
+
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 16px;
+
+    .label {
+      font-weight: 500;
+      margin-right: 16px;
+    }
+  }
+}

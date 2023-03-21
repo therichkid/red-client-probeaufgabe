@@ -22,7 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRippleModule } from '@angular/material/core';
-import { DialogDetailRowComponent } from './dialog-detail-row/dialog-detail-row.component';
+import { DialogDetailComponent } from './dialog-detail/dialog-detail.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 
 @NgModule({
@@ -51,7 +51,7 @@ import { SearchFormComponent } from './search-form/search-form.component';
     ToolbarComponent,
     GridContainerComponent,
     UnicornTableComponent,
-    DialogDetailRowComponent,
+    DialogDetailComponent,
     SearchFormComponent,
   ],
   exports: [
@@ -61,7 +61,7 @@ import { SearchFormComponent } from './search-form/search-form.component';
     ToolbarComponent,
     GridContainerComponent,
     UnicornTableComponent,
-    DialogDetailRowComponent,
+    DialogDetailComponent,
     SearchFormComponent,
 
     // Modules

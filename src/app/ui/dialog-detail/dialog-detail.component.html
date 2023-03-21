@@ -1,0 +1,6 @@
+<div class="detail-table">
+  <div *ngFor="let row of presentedData" class="detail-row">
+    <div class="label">{{ row.label }}:</div>
+    <div class="value" [innerHTML]="row.value"></div>
+  </div>
+</div>
