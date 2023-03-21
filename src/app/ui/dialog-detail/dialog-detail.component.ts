@@ -19,7 +19,7 @@ export class DialogDetailComponent {
     const preparedData = this.fhirUtilService.prepareData(data);
     const presentedData = [
       { label: 'Resource Type', value: preparedData.resourceType },
-      { label: 'Name', value: preparedData.name?.join(', ') },
+      { label: 'Name', value: preparedData.name?.join('<br>') },
       { label: 'ID', value: preparedData.id },
     ];
 
