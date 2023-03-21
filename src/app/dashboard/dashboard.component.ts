@@ -3,9 +3,8 @@ import { Observable, of, Subject } from 'rxjs';
 import { catchError, map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
 import { SiteTitleService } from '@red-probeaufgabe/core';
 import { FhirSearchFn, IFhirPatient, IFhirPractitioner, IFhirSearchResponse } from '@red-probeaufgabe/types';
-import { IUnicornTableColumn } from '@red-probeaufgabe/ui';
+import { ISearchFormChange, IUnicornTableColumn } from '@red-probeaufgabe/ui';
 import { SearchFacadeService } from '@red-probeaufgabe/search';
-import { SearchFormChange } from 'app/ui/models/search-form.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +22,7 @@ export class DashboardComponent {
   ]);
   isLoading = true;
 
-  searchChanged$: Subject<SearchFormChange> = new Subject();
+  searchChanged$: Subject<ISearchFormChange> = new Subject();
 
   search$: Observable<IFhirSearchResponse<IFhirPatient | IFhirPractitioner>> = this.searchChanged$.pipe(
     startWith({ query: '', resource: FhirSearchFn.SearchAll }),

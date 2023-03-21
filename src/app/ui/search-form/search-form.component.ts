@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { FhirSearchFn } from '@red-probeaufgabe/types';
-import { SearchFormChange } from '../models/search-form.interface';
+import { ISearchFormChange } from '../models';
 
 @Component({
   selector: 'app-search',
@@ -18,7 +18,7 @@ export class SearchFormComponent implements OnInit {
     { label: 'Patients + Practitioners', value: FhirSearchFn.SearchAll },
   ];
 
-  @Output() searchChanged: EventEmitter<SearchFormChange> = new EventEmitter();
+  @Output() searchChanged: EventEmitter<ISearchFormChange> = new EventEmitter();
 
   ngOnInit(): void {
     this.queryControl.valueChanges.subscribe(() => this.emitSearchFormChange());
