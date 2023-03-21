@@ -1,13 +1,14 @@
 <form>
   <mat-form-field class="search-input">
     <mat-label>Search</mat-label>
-    <input matInput />
+    <input matInput [formControl]="queryControl" />
+    <mat-error *ngIf="queryControl.invalid">Invalid characters entered</mat-error>
   </mat-form-field>
 
   <mat-form-field class="select-input">
-    <mat-label>Filter</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let option of resourceFilterOptions" [value]="option.value">{{ option.label }}</mat-option>
+    <mat-label>Resources</mat-label>
+    <mat-select [formControl]="resourceControl">
+      <mat-option *ngFor="let option of resourceOptions" [value]="option.value">{{ option.label }}</mat-option>
     </mat-select>
   </mat-form-field>
 </form>
