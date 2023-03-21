@@ -16,6 +16,10 @@ export class DialogDetailComponent {
     private fhirUtilService: FhirUtilService,
     @Inject(MAT_DIALOG_DATA) data: IFhirPatient | IFhirPractitioner,
   ) {
+    this.presentedData = this.preparePresentableData(data);
+  }
+
+  preparePresentableData(data: IFhirPatient | IFhirPractitioner): { label: string; value: string }[] {
     const preparedData = this.fhirUtilService.prepareData(data);
     const presentedData = [
       { label: 'Resource Type', value: preparedData.resourceType },
@@ -36,6 +40,6 @@ export class DialogDetailComponent {
       });
     }
 
-    this.presentedData = presentedData.filter(({ value }) => value !== undefined);
+    return presentedData.filter(({ value }) => value !== undefined);
   }
 }
