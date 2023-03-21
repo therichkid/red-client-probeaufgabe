@@ -1,4 +1,11 @@
 import { Component } from '@angular/core';
+import { FhirResourceType } from '@red-probeaufgabe/types';
+
+enum BothResources {
+  Both = 'Both',
+}
+type ResourceFilterOption = FhirResourceType | BothResources;
+const ResourceFilterOption = { ...FhirResourceType, ...BothResources };
 
 @Component({
   selector: 'app-search',
@@ -6,5 +13,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./search-form.component.scss'],
 })
 export class SearchFormComponent {
-  /** Implement Search Form */
+  resourceFilterOptions: { label: ResourceFilterOption | string; value: ResourceFilterOption }[] = [
+    { label: ResourceFilterOption.Patient, value: ResourceFilterOption.Patient },
+    { label: ResourceFilterOption.Practitioner, value: ResourceFilterOption.Practitioner },
+    { label: 'Patient + Practitioner', value: ResourceFilterOption.Both },
+  ];
 }
