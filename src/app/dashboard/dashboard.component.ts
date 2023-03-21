@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError, map, shareReplay, startWith, tap } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
+import { catchError, map, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
 import { SiteTitleService } from '@red-probeaufgabe/core';
 import { FhirSearchFn, IFhirPatient, IFhirPractitioner, IFhirSearchResponse } from '@red-probeaufgabe/types';
 import { IUnicornTableColumn } from '@red-probeaufgabe/ui';
 import { SearchFacadeService } from '@red-probeaufgabe/search';
+import { SearchFormChange } from 'app/ui/models/search-form.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,18 +23,20 @@ export class DashboardComponent {
   ]);
   isLoading = true;
 
-  /*
-   * Implement search on keyword or fhirSearchFn change
-   **/
-  search$: Observable<IFhirSearchResponse<IFhirPatient | IFhirPractitioner>> = this.searchFacade
-    .search(FhirSearchFn.SearchAll, '')
-    .pipe(
-      catchError(this.handleError),
-      tap(() => {
-        this.isLoading = false;
-      }),
-      shareReplay(),
-    );
+  searchChanged$: Subject<SearchFormChange> = new Subject();
+
+  search$: Observable<IFhirSearchResponse<IFhirPatient | IFhirPractitioner>> = this.searchChanged$.pipe(
+    startWith({ query: '', resource: FhirSearchFn.SearchAll }),
+    switchMap(({ query, resource }) =>
+      this.searchFacade.search(resource, query).pipe(
+        catchError(this.handleError),
+        tap(() => {
+          this.isLoading = false;
+        }),
+        shareReplay(),
+      ),
+    ),
+  );
 
   entries$: Observable<Array<IFhirPatient | IFhirPractitioner>> = this.search$.pipe(
     map((data) => !!data && data.entry),
@@ -49,7 +52,7 @@ export class DashboardComponent {
    * Task 1:
    * Instead of the abstract class AbstractSearchFacadeService, the class SearchFacadeService needs to be used here.
    * The abstract class is used as a blueprint and doesn't implement the logic which we need here.
-   **/
+   */
   constructor(private siteTitleService: SiteTitleService, private searchFacade: SearchFacadeService) {
     this.siteTitleService.setSiteTitle('Dashboard');
   }
