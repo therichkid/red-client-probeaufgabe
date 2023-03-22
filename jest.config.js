@@ -7,4 +7,7 @@ module.exports = {
   },
   // Ignore cypress spec files from executing
   testPathIgnorePatterns: ['<rootDir>/cypress/', '<rootDir>/e2e/'],
+  moduleNameMapper: {
+    '^@red-probeaufgabe(.*)$': '<rootDir>/src/app$1',
+  },
 };
