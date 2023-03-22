@@ -39,7 +39,7 @@ const mockPractitionerSearchService: Partial<PractitionerSearchService> = {
 describe('SearchFacadeService', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [],
       providers: [
         SearchFacadeService,
         { provide: PatientSearchService, useValue: mockPatientSearchService },
